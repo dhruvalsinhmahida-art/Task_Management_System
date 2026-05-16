@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<h2>Projects</h2>
+<% if (userRole === 'admin') { %>
+    <a href="/projects/add" class="btn btn-primary mb-3">Add New Project</a>
+<% } %>
+
+<div class="row">
+    <% projects.forEach(project => { %>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= project.name %></h5>
+                    <p class="card-text"><%= project.description || 'No description' %></p>
+                    <p class="text-muted small">Created by: <%= project.creator_name || 'Unknown' %></p>
+                    <a href="/projects/<%= project.id %>/tasks" class="btn btn-info btn-sm">View Tasks</a>
+                    <% if (userRole === 'admin') { %>
+                        <form action="/projects/delete/<%= project.id %>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this project and all its tasks?')">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+</div>
+
+<%- include('partials/footer') %>

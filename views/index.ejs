@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<div class="hero-section text-center py-5">
+    <h1 class="display-4">Welcome to TaskFlow</h1>
+    <p class="lead">Streamline your project management with real-time updates</p>
+    <% if (!user) { %>
+        <a href="/register" class="btn btn-primary btn-lg">Get Started</a>
+        <a href="/login" class="btn btn-outline-secondary btn-lg">Login</a>
+    <% } else { %>
+        <a href="/dashboard" class="btn btn-primary btn-lg">Go to Dashboard</a>
+    <% } %>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-tasks fa-3x text-primary"></i>
+                <h5 class="card-title mt-3">Task Management</h5>
+                <p>Create, update, and track tasks with ease</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x text-success"></i>
+                <h5 class="card-title mt-3">Team Collaboration</h5>
+                <p>Assign tasks and work together efficiently</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <i class="fas fa-chart-line fa-3x text-info"></i>
+                <h5 class="card-title mt-3">Real-time Updates</h5>
+                <p>Get instant notifications when things change</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

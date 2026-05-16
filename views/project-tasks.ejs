@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<h2>Tasks in: <%= project.name %></h2>
+<a href="/tasks/add" class="btn btn-primary mb-3">Add Task to this Project</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Title</th><th>Due Date</th><th>Priority</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <% tasks.forEach(task => { %>
+        <tr>
+            <td><%= task.title %></td>
+            <td><%= task.due_date %></td>
+            <td><%= task.priority %></td>
+            <td><%= task.status %></td>
+        </tr>
+        <% }) %>
+        <% if (tasks.length === 0) { %>
+            <tr><td colspan="4" class="text-center">No tasks in this project</td></tr>
+        <% } %>
+    </tbody>
+</table>
+
+<%- include('partials/footer') %>

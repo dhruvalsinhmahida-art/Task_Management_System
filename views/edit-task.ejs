@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<h2>Edit Task</h2>
+<div class="card">
+    <div class="card-body">
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <form action="/tasks/edit/<%= task.id %>" method="POST">
+            <div class="mb-3">
+                <label>Title *</label>
+                <input type="text" name="title" class="form-control" value="<%= task.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3"><%= task.description || '' %></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Due Date *</label>
+                    <input type="date" name="due_date" class="form-control" value="<%= task.due_date %>" required>
+                </div>
+                <div class="col-md-6">
+                    <label>Priority</label>
+                    <select name="priority" class="form-control">
+                        <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Low</option>
+                        <option value="medium" <%= task.priority === 'medium' ? 'selected' : '' %>>Medium</option>
+                        <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>High</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Status</label>
+                    <select name="status" class="form-control">
+                        <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                        <option value="in_progress" <%= task.status === 'in_progress' ? 'selected' : '' %>>In Progress</option>
+                        <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Project</label>
+                    <select name="project_id" class="form-control">
+                        <option value="">No Project</option>
+                        <% projects.forEach(project => { %>
+                            <option value="<%= project.id %>" <%= task.project_id === project.id ? 'selected' : '' %>><%= project.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Update Task</button>
+            <a href="/tasks" class="btn btn-secondary mt-3">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

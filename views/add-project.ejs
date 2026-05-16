@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+<%- include('partials/navbar') %>
+
+<h2>Add New Project</h2>
+<div class="card">
+    <div class="card-body">
+        <% if (error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <form action="/projects/add" method="POST">
+            <div class="mb-3">
+                <label>Project Name *</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Project</button>
+            <a href="/projects" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
