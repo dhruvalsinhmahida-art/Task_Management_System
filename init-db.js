@@ -2,7 +2,7 @@ const { initializeDatabase, getDb, saveDatabase } = require('./database');
 const bcrypt = require('bcryptjs');
 
 async function initDatabase() {
-  console.log('=== DATABASE INITIALIZATION ===');
+  console.log('DATABASE INITIALIZATION');
 
   await initializeDatabase();
   const db = getDb();
@@ -14,11 +14,11 @@ async function initDatabase() {
   db.run(`DELETE FROM users`);
   db.run(`DELETE FROM sqlite_sequence`);
 
-  // Hash passwords - UPDATED with your credentials
+  // Hash passwords
   const adminPassword = bcrypt.hashSync('Dhruval@19', 10);  // Changed
   const userPassword = bcrypt.hashSync('user123', 10);
 
-  // Insert admin user - UPDATED with your email
+  // Insert admin user - UPDATED
   console.log('Creating admin user...');
   db.run(`INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)`,
     ['Administrator', 'dhruvalsinhmahida@gmail.com', adminPassword, 'admin']);  // Email changed
@@ -45,17 +45,17 @@ async function initDatabase() {
   saveDatabase();
 
   console.log('');
-  console.log('🎉 Database initialized successfully!');
+  console.log('Database initialized successfully!');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log('📝 Login Credentials:');
-  console.log('   Admin: dhruvalsinhmahida@gmail.com / Dhruval@19');  // Updated
+  console.log('Login Credentials:');
+  console.log('   Admin: dhruvalsinhmahida@gmail.com / Dhruval@19');
   console.log('   User:  user@example.com / user123');
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
   // Verify
   const result = db.exec(`SELECT id, name, email, role FROM users`);
   if (result.length > 0) {
-    console.log('\n✅ Users in database:', result[0].values.length);
+    console.log('\n Users in database:', result[0].values.length);
   }
 }
 
