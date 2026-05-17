@@ -1,6 +1,6 @@
 const { getDb, saveDatabase } = require('../database');
 const bcrypt = require('bcryptjs');
-
+//Creating Users
 class User {
   static create(name, email, password, role = 'user') {
     const db = getDb();
