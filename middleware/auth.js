@@ -1,4 +1,4 @@
-// Check if user is authenticated
+// Checking if user is authenticated
 function isAuthenticated(req, res, next) {
   if (req.session && req.session.userId) {
     return next();
@@ -6,7 +6,7 @@ function isAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-// Check if user is admin
+// Checking if user is admin
 function isAdmin(req, res, next) {
   if (req.session && req.session.userRole === 'admin') {
     return next();
@@ -14,7 +14,7 @@ function isAdmin(req, res, next) {
   res.status(403).send('Access denied. Admin only.');
 }
 
-// Make user data available to all views
+// Making user data available to all views
 function setUserLocals(req, res, next) {
   res.locals.user = req.session.userId ? {
     id: req.session.userId,
