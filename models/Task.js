@@ -1,5 +1,5 @@
 const { getDb, saveDatabase } = require('../database');
-
+//Creating a Task
 class Task {
   static create(task) {
     try {
@@ -87,7 +87,7 @@ class Task {
       return null;
     }
   }
-
+//Updating a task
   static update(id, task) {
     try {
       const db = getDb();
@@ -107,7 +107,7 @@ class Task {
       throw err;
     }
   }
-
+//Deleting a task
   static delete(id) {
     try {
       const db = getDb();
