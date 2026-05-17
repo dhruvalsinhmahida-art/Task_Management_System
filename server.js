@@ -88,12 +88,12 @@ io.on('connection', (socket) => {
 // Start server after database is ready
 async function startServer() {
   await initializeDatabase();
-  console.log('✅ Database ready');
+  console.log('Database ready!');
 
   const PORT = process.env.PORT || 3000;
   // Only ONE server.listen() call - using 0.0.0.0 for Render compatibility
   server.listen(PORT, '0.0.0.0', () => {
-    console.log(`✅ Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 }
 
