@@ -7,23 +7,23 @@ const dbPath = path.resolve(__dirname, 'taskmanager.db');
 let db = null;
 
 async function initializeDatabase() {
-  // Check if database file exists
+  // Checking if database file exists
   let fileBuffer = null;
   if (fs.existsSync(dbPath)) {
     fileBuffer = fs.readFileSync(dbPath);
   }
 
-  // Initialize SQL.js
+  // Initializing SQL.js
   const SQL = await initSqlJs();
 
-  // Create or load database
+  // Creating or load database
   if (fileBuffer) {
     db = new SQL.Database(fileBuffer);
   } else {
     db = new SQL.Database();
   }
 
-  // Create tables
+  // Creating tables
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
