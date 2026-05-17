@@ -5,7 +5,7 @@ async function checkDatabase() {
     await initializeDatabase();
     const db = getDb();
 
-    // Get all users - using exec for sql.js
+    // Getting all users - using exec for sql.js
     const result = db.exec(`SELECT id, name, email, role, password FROM users`);
 
     if (result.length > 0) {
