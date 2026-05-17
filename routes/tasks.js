@@ -4,12 +4,12 @@ const Task = require('../models/Task');
 const Project = require('../models/Project');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
-// View all tasks (redirects to dashboard)
+// Viewing all tasks (redirects to dashboard)
 router.get('/', isAuthenticated, (req, res) => {
   res.redirect('/dashboard');
 });
 
-// Add task form
+// Adding task form
 router.get('/add', isAuthenticated, (req, res) => {
   try {
     console.log('Loading add task form');
@@ -22,7 +22,7 @@ router.get('/add', isAuthenticated, (req, res) => {
   }
 });
 
-// Add task handler
+// Adding task handler
 router.post('/add', isAuthenticated, (req, res) => {
   const { title, description, due_date, priority, status, project_id } = req.body;
 
@@ -51,7 +51,7 @@ router.post('/add', isAuthenticated, (req, res) => {
 
     Task.create(task);
 
-    // Emit real-time update
+    // Emitting real-time update
     const io = req.app.get('io');
     io.emit('task-notification', { message: `New task "${title}" created` });
 
@@ -67,7 +67,7 @@ router.post('/add', isAuthenticated, (req, res) => {
   }
 });
 
-// Edit task form (Admin only)
+// Editing task form (Admin only)
 router.get('/edit/:id', isAuthenticated, isAdmin, (req, res) => {
   try {
     console.log('Loading edit task form for id:', req.params.id);
@@ -83,7 +83,7 @@ router.get('/edit/:id', isAuthenticated, isAdmin, (req, res) => {
   }
 });
 
-// Edit task handler (Admin only)
+// Editing task handler (Admin only)
 router.post('/edit/:id', isAuthenticated, isAdmin, (req, res) => {
   const { title, description, due_date, priority, status, project_id } = req.body;
 
@@ -110,7 +110,7 @@ router.post('/edit/:id', isAuthenticated, isAdmin, (req, res) => {
   }
 });
 
-// Delete task (Admin only)
+// Deleting task (Admin only)
 router.post('/delete/:id', isAuthenticated, isAdmin, (req, res) => {
   try {
     Task.delete(parseInt(req.params.id));
