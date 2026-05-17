@@ -24,13 +24,13 @@ router.post('/register', (req, res) => {
   try {
     const db = getDb();
 
-    // Check if user exists
+    // Checking if user exists
     const existing = db.exec(`SELECT * FROM users WHERE email = '${email}'`);
     if (existing.length > 0 && existing[0].values.length > 0) {
       return res.render('register', { error: 'Email already registered' });
     }
 
-    // Create new user
+    // Creating new user
     const hashedPassword = bcrypt.hashSync(password, 10);
     db.run(`INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)`,
       [name, email, hashedPassword, 'user']);
@@ -69,7 +69,7 @@ router.post('/login', (req, res) => {
       return res.render('login', { error: 'Invalid email or password' });
     }
 
-    // Get the user data - sql.js returns array of values
+    // Getting the user data - sql.js returns array of values
     const userRow = result[0].values[0];
     const columns = result[0].columns;
 
@@ -82,7 +82,7 @@ router.post('/login', (req, res) => {
     console.log('User found:', user.email, 'Role:', user.role);
     console.log('Stored hash:', user.password.substring(0, 30) + '...');
 
-    // Verify password
+    // Verifying password
     const isValid = bcrypt.compareSync(password, user.password);
     console.log('Password valid:', isValid);
 
@@ -90,7 +90,7 @@ router.post('/login', (req, res) => {
       return res.render('login', { error: 'Invalid email or password' });
     }
 
-    // Set session
+    // Setting session
     req.session.userId = user.id;
     req.session.userName = user.name;
     req.session.userEmail = user.email;
