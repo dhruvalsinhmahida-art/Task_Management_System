@@ -5,23 +5,23 @@ const path = require('path');
 const http = require('http');
 const { Server } = require('socket.io');
 
-// Importing database initialization
+// Import database initialization
 const { initializeDatabase, getDb } = require('./database');
 
-// Importing routes
+// Import routes
 const authRoutes = require('./routes/auth');
 const taskRoutes = require('./routes/tasks');
 const projectRoutes = require('./routes/projects');
 const { setUserLocals } = require('./middleware/auth');
 
-// Importing models
+// Import models
 const Task = require('./models/Task');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Makeing io available to routes
+// Make io available to routes
 app.set('io', io);
 
 // Middleware
@@ -37,7 +37,7 @@ app.use(session({
   cookie: { secure: false, maxAge: 3600000 }
 }));
 
-// Making user data available to all views
+// Make user data available to all views
 app.use(setUserLocals);
 
 // Set view engine
@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Dashboard - FIXED version
+// Dashboard
 app.get('/dashboard', (req, res) => {
   if (!req.session.userId) {
     return res.redirect('/login');
@@ -68,7 +68,6 @@ app.get('/dashboard', (req, res) => {
     res.render('dashboard', { tasks, userRole: req.session.userRole });
   } catch (err) {
     console.error('Dashboard error:', err);
-    // Send error details to browser for debugging
     res.status(500).send(`
       <h1>Error Loading Dashboard</h1>
       <p>Error: ${err.message}</p>
@@ -81,7 +80,6 @@ app.get('/dashboard', (req, res) => {
 // Socket.io
 io.on('connection', (socket) => {
   console.log('New client connected');
-
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
@@ -90,13 +88,14 @@ io.on('connection', (socket) => {
 // Start server after database is ready
 async function startServer() {
   await initializeDatabase();
-  console.log('Database ready');
+  console.log('✅ Database ready');
 
   const PORT = process.env.PORT || 3000;
-  server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:3000`);
-    console.log('Ready to accept connections');
+  // Only ONE server.listen() call - using 0.0.0.0 for Render compatibility
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Server running on port ${PORT}`);
   });
 }
 
+// Start the application
 startServer();
