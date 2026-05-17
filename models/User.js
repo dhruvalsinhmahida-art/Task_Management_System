@@ -12,7 +12,7 @@ class User {
 
     saveDatabase();
 
-    // Get the last inserted ID
+    // Getting the last inserted ID
     const idStmt = db.prepare(`SELECT last_insert_rowid() as id`);
     const result = idStmt.get();
     idStmt.free();
