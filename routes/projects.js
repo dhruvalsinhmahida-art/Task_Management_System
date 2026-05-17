@@ -4,7 +4,7 @@ const Project = require('../models/Project');
 const Task = require('../models/Task');
 const { isAuthenticated, isAdmin } = require('../middleware/auth');
 
-// View all projects
+// Viewing all projects
 router.get('/', isAuthenticated, (req, res) => {
   try {
     console.log('Loading projects page');
@@ -17,12 +17,12 @@ router.get('/', isAuthenticated, (req, res) => {
   }
 });
 
-// Add project form (Admin only)
+// Adding project form (Admin only)
 router.get('/add', isAuthenticated, isAdmin, (req, res) => {
   res.render('add-project', { error: null });
 });
 
-// Add project handler (Admin only)
+// Adding project handler (Admin only)
 router.post('/add', isAuthenticated, isAdmin, (req, res) => {
   const { name, description } = req.body;
 
@@ -39,7 +39,7 @@ router.post('/add', isAuthenticated, isAdmin, (req, res) => {
   }
 });
 
-// Delete project (Admin only)
+// Deleting project (Admin only)
 router.post('/delete/:id', isAuthenticated, isAdmin, (req, res) => {
   try {
     Project.delete(parseInt(req.params.id));
@@ -50,7 +50,7 @@ router.post('/delete/:id', isAuthenticated, isAdmin, (req, res) => {
   }
 });
 
-// View tasks in a project
+// Viewing tasks in a project
 router.get('/:id/tasks', isAuthenticated, (req, res) => {
   try {
     const project = Project.findById(parseInt(req.params.id));
