@@ -1,5 +1,5 @@
 const { getDb, saveDatabase } = require('../database');
-
+//Creating a project
 class Project {
   static create(name, description, createdBy) {
     try {
@@ -72,7 +72,7 @@ class Project {
       return null;
     }
   }
-
+//updating project
   static update(id, name, description) {
     try {
       const db = getDb();
@@ -85,7 +85,7 @@ class Project {
       throw err;
     }
   }
-
+//deleting project
   static delete(id) {
     try {
       const db = getDb();
